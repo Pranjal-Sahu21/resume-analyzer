@@ -9,7 +9,7 @@ export default function Badge({ severity }) {
   };
   return (
     <span
-      className={`text-xs px-2 py-1 rounded-full text-white ${
+      className={`text-xs px-3 py-1 rounded-full text-white shadow-sm ${
         map[severity] || "bg-white/10"
       }`}
     >

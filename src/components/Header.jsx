@@ -9,7 +9,7 @@ export default function Header({ onUploadClick }) {
       </div>
       <button
         onClick={onUploadClick}
-        className="px-4 py-2 rounded-md bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold"
+        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition"
       >
         Upload
       </button>

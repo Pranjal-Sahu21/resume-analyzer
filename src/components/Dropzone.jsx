@@ -10,8 +10,8 @@ export default function Dropzone({ onFile }) {
   );
 
   return (
-    <label className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed border-white/20 rounded-xl cursor-pointer bg-white/5 hover:bg-white/10 transition">
-      <span className="text-white/70 text-sm">
+    <label className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed border-white/20 rounded-xl cursor-pointer bg-white/5 hover:bg-white/10 hover:border-indigo-400 transition-all duration-300">
+      <span className="text-white/70 text-sm md:text-base font-medium">
         Drag & drop or click to upload
       </span>
       <input
