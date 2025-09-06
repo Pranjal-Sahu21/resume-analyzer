@@ -18,7 +18,7 @@ export default function UploadCard({ onAnalyze }) {
         title: title || "Software Engineer",
         fileName: file?.name,
       });
-    }, 1200);
+    }, 500);
   }
 
   return (
