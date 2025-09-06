@@ -76,7 +76,7 @@ export default function ResumeReview({
       </div>
 
       <div className="mt-6 text-right">
-        <button className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition">
+        <button className="px-5 py-2.5 cursor-pointer rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition">
           Download suggestions
         </button>
       </div>
