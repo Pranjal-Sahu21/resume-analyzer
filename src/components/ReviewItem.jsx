@@ -1,9 +1,9 @@
 import React from "react";
 import Badge from "./Badge";
 
-export default function ReviewItem({ item }) {
+export default function ReviewItem({ key, item }) {
   return (
-    <div className="border-l-4 border-white/6 pl-4 pb-3">
+    <div className="border-l-4 border-white/6 pl-4 pb-3" key={key}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="text-white font-semibold">{item.title}</div>
