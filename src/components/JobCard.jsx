@@ -45,7 +45,6 @@ export default function JobCard({ job }) {
           </div>
         </div>
       </div>
-      <div className="mt-3 text-xs md:text-sm text-white/70">{job.snippet}</div>
     </div>
   );
 }

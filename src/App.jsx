@@ -159,7 +159,7 @@ export default function App() {
       </div>
 
       {/* Main content */}
-      <main className="relative z-10 px-6 md:px-12 lg:px-24 py-16 space-y-32">
+      <main className="relative z-10 px-6 md:px-12 lg:px-24 py-12 space-y-32">
         {/* Job Grid */}
         <motion.section
           initial="hidden"
