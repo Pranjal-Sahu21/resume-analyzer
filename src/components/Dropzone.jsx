@@ -15,6 +15,7 @@ export default function Dropzone({ onFile }) {
         Drag & drop or click to upload
       </span>
       <input
+        required
         type="file"
         accept=".pdf,.doc,.docx"
         onChange={handleChange}
