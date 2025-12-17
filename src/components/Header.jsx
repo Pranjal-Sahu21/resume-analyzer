@@ -16,11 +16,12 @@ export default function Header({ onUploadClick }) {
       <motion.button
         whileHover={{
           scale: 1.05,
-          boxShadow: "0px 0px 15px rgba(255,255,255,0.3)",
+          boxShadow: "0px 0px 12px rgba(255,255,255,0.25)",
         }}
         whileTap={{ scale: 0.95 }}
         onClick={onUploadClick}
-        className="px-5 py-2.5 cursor-pointer rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition"
+        className="px-4 py-2 cursor-pointer rounded-lg bg-gradient-to-r from-indigo-500 to-pink-500 
+             text-white text-sm font-semibold shadow-md hover:brightness-110 transition"
       >
         Upload
       </motion.button>

@@ -1,39 +1,55 @@
+// src/components/JobGrid.jsx
 import React from "react";
-import JobCard from "./JobCard";
 import { motion } from "framer-motion";
+import JobCard from "./JobCard";
 
-export default function JobGrid({ jobs = [] }) {
-  if (!jobs.length) {
+export default function JobGrid({ jobs = [], onButtonClick }) {
+  if (!jobs || jobs.length === 0) {
     return (
-      <div className="text-white/60 text-center mt-6">No jobs to display.</div>
+      <div className="text-center py-12">
+        <p className="text-white/60">No job positions available</p>
+      </div>
     );
   }
 
   return (
-    <div className="flex-col">
-      <div className="text-center my-6  pb-4 mb-12">
-        <h1
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-4xl max-lg:text-3xl font-bold tracking-wide text-gradient leading-normal"
-        >
-          Track Your Applications
-        </h1>
+    <div className="space-y-5">
+      {/* Section title */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-4xl font-bold tracking-wide text-gradient max-lg:text-3xl text-center leading-relaxed"
+      >
+        Track your applications
+      </motion.h2>
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-4xl font-bold tracking-wide text-gradient max-lg:text-3xl text-center mt-[-24px] leading-relaxed"
+      >
+        & Resume ratings
+      </motion.h2>
 
-        <h1
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-4xl max-lg:text-3xl font-bold mt-[-12px] tracking-wide text-gradient leading-relaxed"
-        >
-          & Resume Ratings
-        </h1>
-      </div>
-
-      <div className="flex gap-4 mt-8">
-        {jobs.map((j) => (
-          <JobCard key={j.id} job={j} />
+      {/* Job grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+        {jobs.map((job, index) => (
+          <motion.div
+            key={job.id || index}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className="h-full mt-4"
+          >
+            <JobCard
+              job={job}
+              onClick={() => {
+                console.log("Selected job:", job);
+              }}
+            />
+          </motion.div>
         ))}
       </div>
     </div>

@@ -1,117 +1,184 @@
-import React from "react";
+// src/components/ResumeReview.js
+import React, { useState } from "react";
 import Progress from "./Progress";
-import ReviewItem from "./ReviewItem";
 
 export default function ResumeReview({
   analysis = {
     name: "Candidate",
     title: "Unknown Role",
-    summary:
-      "Your resume shows strong experience alignment but could be improved by adding more measurable achievements, keyword optimization, and consistent formatting.",
+    fileName: "No file selected",
+    scores: {
+      ats_score: 75,
+      SKILL_SCORE: 70,
+      Content_score: 65,
+      "tone & style score": 60,
+      structure_score: 68,
+    },
   },
 }) {
+  const [optimizationResults, setOptimizationResults] = useState({});
+
+  const OPTIMIZATION_TIPS = {
+    ats: "Use standard headings and avoid complex layouts.",
+    skills: "Highlight relevant skills clearly and early.",
+    content: "Add measurable achievements and results.",
+    tone: "Keep language concise and professional.",
+    structure: "Use consistent spacing and bullet points.",
+  };
+
+  const handleOptimize = (type) => {
+    setOptimizationResults((prev) => ({
+      ...prev,
+      [type]: OPTIMIZATION_TIPS[type],
+    }));
+  };
+
+  const getSeverity = (score) => {
+    if (score >= 80) return "low";
+    if (score >= 60) return "medium";
+    if (score >= 40) return "high";
+    return "critical";
+  };
+
+  const getImpact = (score) => {
+    const potential = 100 - score;
+    return `+${Math.round(potential * 0.4)}%`;
+  };
+
   const items = [
     {
       id: 1,
-      title: "ATS Keyword Match",
-      description: "Missing keywords like React and AWS.",
-      severity: "high",
-      impact: "+12%",
+      key: "ats",
+      title: "ATS Score",
+      description:
+        optimizationResults.ats ||
+        "How well your resume matches ATS requirements.",
+      score: analysis.scores.ats_score,
     },
     {
       id: 2,
-      title: "Concise Summary",
-      description: "Make your summary more role-specific.",
-      severity: "medium",
-      impact: "+6%",
+      key: "skills",
+      title: "Skills Match",
+      description:
+        optimizationResults.skills ||
+        "Relevance of your skills to the target job.",
+      score: analysis.scores.SKILL_SCORE,
     },
     {
       id: 3,
-      title: "Formatting",
-      description: "Use consistent date formatting.",
-      severity: "low",
-      impact: "+2%",
+      key: "content",
+      title: "Content Quality",
+      description:
+        optimizationResults.content || "Quality and relevance of your content.",
+      score: analysis.scores.Content_score,
     },
     {
       id: 4,
-      title: "Actionable Metrics",
-      description: "Add measurable results in achievements.",
-      severity: "critical",
-      impact: "+18%",
+      key: "tone",
+      title: "Tone & Style",
+      description:
+        optimizationResults.tone ||
+        "Professionalism and appropriateness of tone.",
+      score: analysis.scores["tone & style score"],
+    },
+    {
+      id: 5,
+      key: "structure",
+      title: "Structure",
+      description:
+        optimizationResults.structure ||
+        "Organization and readability of your resume.",
+      score: analysis.scores.structure_score,
     },
   ];
 
-  const score = 78;
+  const overallScore = Math.round(
+    items.reduce((sum, item) => sum + item.score, 0) / items.length
+  );
 
   return (
     <div className="bg-white/5 border border-white/10 rounded-2xl p-8 w-full max-w-5xl shadow-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Left Column - Review Details */}
+      {/* Left Column */}
       <div>
         <div className="flex items-center justify-between">
           <div>
             <div className="text-white font-bold text-xl">Resume Review</div>
             <div className="text-sm text-white/60">
-              {analysis?.name || "Candidate"} —{" "}
-              {analysis?.title || "Unknown Role"}
+              {analysis.name} — {analysis.title}
+            </div>
+            <div className="text-xs text-white/40 mt-1">
+              Selected file: {analysis.fileName}
             </div>
           </div>
           <div className="text-right">
-            <div className="text-xs text-white/60">ATS score</div>
-            <div className="text-3xl font-extrabold text-white">{score}%</div>
+            <div className="text-xs text-white/60">Overall score</div>
+            <div className="text-3xl font-extrabold text-white">
+              {overallScore}%
+            </div>
           </div>
         </div>
 
         <div className="mt-4">
-          <Progress value={score} />
-        </div>
-
-        <div className="mt-4 flex gap-4">
-          <div className="flex-1 bg-white/10 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-            <div className="text-xs text-white/60">Experience match</div>
-            <div className="text-white font-semibold text-lg">Strong</div>
-          </div>
-          <div className="flex-1 bg-white/10 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-            <div className="text-xs text-white/60">Skills</div>
-            <div className="text-white font-semibold text-lg">
-              Improve keywords
-            </div>
-          </div>
+          <Progress value={overallScore} />
         </div>
 
         <div className="mt-6 space-y-4">
-          {items.map((it) => (
-            <ReviewItem key={it.id} item={it} />
+          {items.map((item) => (
+            <div key={item.id} className="border-l-4 border-white/10 pl-4 pb-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                  <div className="text-white font-semibold">{item.title}</div>
+                  <div className="text-xs text-white/60 mt-1">
+                    {item.description}
+                  </div>
+                  <button
+                    onClick={() => handleOptimize(item.key)}
+                    className="mt-2 text-xs text-indigo-400 hover:text-indigo-300"
+                  >
+                    Get optimization tips
+                  </button>
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  <span
+                    className={`text-xs px-3 py-1 rounded-full text-white ${
+                      getSeverity(item.score) === "critical"
+                        ? "bg-red-500/90"
+                        : getSeverity(item.score) === "high"
+                        ? "bg-orange-400/90"
+                        : getSeverity(item.score) === "medium"
+                        ? "bg-yellow-400/90"
+                        : "bg-emerald-400/90"
+                    }`}
+                  >
+                    {item.score}%
+                  </span>
+                  <div className="text-xs text-white/50">
+                    {getImpact(item.score)} potential
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
-        </div>
-
-        <div className="mt-6 text-right">
-          <button className="px-6 py-3 cursor-pointer rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg hover:scale-105 hover:brightness-110 transition">
-            Download suggestions
-          </button>
         </div>
       </div>
 
-      {/* Right Column - Summary */}
+      {/* Right Column */}
       <div className="bg-white/10 rounded-xl p-6 flex flex-col justify-between shadow-md">
         <div>
           <h2 className="text-white font-bold text-xl mb-3">Summary</h2>
-          <p className="text-white/80 leading-relaxed text-sm md:text-base">
-            {analysis?.summary || "No summary available."}
+          <p className="text-white/80 text-sm md:text-base">
+            {overallScore >= 80
+              ? "Your resume is strong and well-aligned with the target position."
+              : overallScore >= 60
+              ? "Your resume has good potential but could use improvements."
+              : overallScore >= 40
+              ? "Your resume needs significant improvements."
+              : "Your resume requires substantial revision."}
           </p>
         </div>
-
-        {/* <div className="mt-6">
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div className="bg-white/5 p-4 rounded-lg">
-              <div className="text-white text-2xl font-bold">4</div>
-              <div className="text-xs text-white/60">Suggestions</div>
-            </div>
-            <div className="bg-white/5 p-4 rounded-lg">
-              <div className="text-white text-2xl font-bold">+38%</div>
-              <div className="text-xs text-white/60">Potential gain</div>
-            </div>
-          </div>
-        </div> */}
+        <button className="mt-6 w-full px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg">
+          Download full report
+        </button>
       </div>
     </div>
   );

@@ -21,6 +21,6 @@
     #4f46e5,
     #ec4899
   ); /* Indigo to pink, matching your button */
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }

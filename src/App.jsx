@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
@@ -6,98 +7,43 @@ import JobGrid from "./components/JobGrid";
 import ResumeReview from "./components/ResumeReview";
 
 export default function App() {
+  // In your App.js, update the jobs array:
   const jobs = [
     {
-        id: "1",
-        companyName: "Google",
-        jobTitle: "Frontend Developer",
-        imagePath: "/images/resume_01.png",
-        resumePath: "/resumes/resume-1.pdf",
-        feedback: {
-            overallScore: 85,
-            ATS: {
-                score: 90,
-                tips: [],
-            },
-            toneAndStyle: {
-                score: 90,
-                tips: [],
-            },
-            content: {
-                score: 90,
-                tips: [],
-            },
-            structure: {
-                score: 90,
-                tips: [],
-            },
-            skills: {
-                score: 90,
-                tips: [],
-            },
-        },
+      id: "1",
+      companyName: "Google",
+      jobTitle: "Frontend Developer",
+      imagePath: "/images/resume_01.png",
+      resumePath: "/resumes/resume-1.pdf",
+      feedback: {
+        overallScore: 85,
+        // ... other feedback properties
+      },
     },
     {
-        id: "2",
-        companyName: "Microsoft",
-        jobTitle: "Cloud Engineer",
-        imagePath: "/images/resume_02.png",
-        resumePath: "/resumes/resume-2.pdf",
-        feedback: {
-            overallScore: 55,
-            ATS: {
-                score: 90,
-                tips: [],
-            },
-            toneAndStyle: {
-                score: 90,
-                tips: [],
-            },
-            content: {
-                score: 90,
-                tips: [],
-            },
-            structure: {
-                score: 90,
-                tips: [],
-            },
-            skills: {
-                score: 90,
-                tips: [],
-            },
-        },
+      id: "2",
+      companyName: "Microsoft",
+      jobTitle: "Cloud Engineer",
+      imagePath: "/images/resume_02.png",
+      resumePath: "/resumes/resume-2.pdf",
+      feedback: {
+        overallScore: 55,
+        // ... other feedback properties
+      },
     },
     {
-        id: "3",
-        companyName: "Apple",
-        jobTitle: "iOS Developer",
-        imagePath: "/images/resume_03.png",
-        resumePath: "/resumes/resume-3.pdf",
-        feedback: {
-            overallScore: 75,
-            ATS: {
-                score: 90,
-                tips: [],
-            },
-            toneAndStyle: {
-                score: 90,
-                tips: [],
-            },
-            content: {
-                score: 90,
-                tips: [],
-            },
-            structure: {
-                score: 90,
-                tips: [],
-            },
-            skills: {
-                score: 90,
-                tips: [],
-            },
-        },
+      id: "3",
+      companyName: "Apple",
+      jobTitle: "iOS Developer",
+      imagePath: "/images/resume_03.png",
+      resumePath: "/resumes/resume-3.pdf",
+      feedback: {
+        overallScore: 75,
+        // ... other feedback properties
+      },
     },
   ];
+
   const [analysis, setAnalysis] = useState(null);
 
   const handleAnalyze = (data) => {
@@ -138,7 +84,7 @@ export default function App() {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-blue-900 animate-gradient bg-[length:400%_400%]" />
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Background glows (contained so they don’t extend layout) */}
+        {/* Background glows (contained so they don't extend layout) */}
         <div className="absolute top-[-10rem] left-[-10rem] w-[20rem] h-[20rem] bg-blue-800/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-0 w-[20rem] h-[20rem] translate-x-1/2 translate-y-1/2 bg-gray-700/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>

@@ -1,62 +1,85 @@
+// src/components/Dropzone.js
 import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { motion } from "framer-motion";
 
-export default function Dropzone({ onFile }) {
-  const [dragActive, setDragActive] = useState(false);
+const Dropzone = ({ onFile }) => {
+  const [fileError, setFileError] = useState("");
 
-  const handleChange = useCallback(
-    (e) => {
-      e.preventDefault();
-      const f = e.target.files?.[0];
-      if (f) onFile(f);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      setFileError("");
+
+      if (acceptedFiles.length === 0) {
+        setFileError("Please select a PDF or DOCX file");
+        return;
+      }
+
+      const file = acceptedFiles[0];
+
+      // Check file type
+      if (!file.type.includes("pdf") && !file.name.endsWith(".docx")) {
+        setFileError("Only PDF and DOCX files are allowed");
+        return;
+      }
+
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setFileError("File size must be less than 5MB");
+        return;
+      }
+
+      onFile(file);
     },
     [onFile]
   );
 
-  const handleDrop = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDragActive(false);
-      const f = e.dataTransfer.files?.[0];
-      if (f) onFile(f);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
     },
-    [onFile]
-  );
-
-  const handleDrag = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  }, []);
+    maxFiles: 1,
+  });
 
   return (
-    <label
-      onDragEnter={handleDrag}
-      onDragOver={handleDrag}
-      onDragLeave={handleDrag}
-      onDrop={handleDrop}
-      className={`flex flex-col items-center justify-center w-full h-48 p-6 border-2 border-dashed rounded-2xl cursor-pointer transition-all duration-300 ${
-        dragActive
-          ? "border-pink-400 bg-pink-500/10"
-          : "border-white/20 bg-white/5 hover:bg-white/10 hover:border-indigo-400"
-      }`}
-    >
-      <input
-        required
-        type="file"
-        accept=".pdf,.doc,.docx"
-        onChange={handleChange}
-        className="hidden"
-      />
-      <span className="text-white/70 text-sm md:text-base font-medium text-center">
-        {dragActive
-          ? "Drop your file here…"
-          : "Drag & drop your resume here, or click to upload"}
-      </span>
-    </label>
+    <div className="w-full">
+      <motion.div
+        {...getRootProps()}
+        whileHover={{ scale: 1.02 }}
+        className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-colors ${
+          isDragActive
+            ? "border-indigo-400 bg-indigo-500/20"
+            : "border-white/30 hover:border-white/50"
+        }`}
+      >
+        <input {...getInputProps()} />
+        <div className="space-y-2">
+          <div className="text-4xl">📄</div>
+          <p className="text-white/80">
+            {isDragActive
+              ? "Drop your resume here"
+              : "Drag & drop your resume here, or click to select"}
+          </p>
+          <p className="text-xs text-white/50">
+            Supports PDF and DOCX files (max 5MB)
+          </p>
+        </div>
+      </motion.div>
+
+      {fileError && (
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-2 text-sm text-red-400"
+        >
+          {fileError}
+        </motion.p>
+      )}
+    </div>
   );
-}
+};
+
+export default Dropzone;
