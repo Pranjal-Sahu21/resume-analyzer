@@ -1,60 +1,9 @@
 import React, { useState } from "react";
 import Progress from "./Progress";
-import {
-  optimizeSkills,
-  optimizeStructure,
-  optimizeContent,
-  optimizeTone,
-} from "../services/api";
 
 export default function ResumeReview({ analysis }) {
-  const [optimizationResults, setOptimizationResults] = useState({});
-  const [loading, setLoading] = useState({});
 
   if (!analysis) return null;
-
-  const handleOptimize = async (key) => {
-    if (!analysis.file) return;
-
-    setLoading((prev) => ({ ...prev, [key]: true }));
-
-    try {
-      let result;
-
-      switch (key) {
-        case "skills":
-          result = await optimizeSkills(analysis.file, analysis.title);
-          break;
-        case "structure":
-          result = await optimizeStructure(analysis.file);
-          break;
-        case "content":
-          result = await optimizeContent(analysis.file);
-          break;
-        case "tone":
-          result = await optimizeTone(analysis.file);
-          break;
-        default:
-          return;
-      }
-
-      setOptimizationResults((prev) => ({
-        ...prev,
-        [key]:
-          result?.feedback ||
-          result?.message ||
-          "Optimization completed successfully.",
-      }));
-    } catch (error) {
-      console.error(error);
-      setOptimizationResults((prev) => ({
-        ...prev,
-        [key]: "Failed to fetch optimization feedback.",
-      }));
-    } finally {
-      setLoading((prev) => ({ ...prev, [key]: false }));
-    }
-  };
 
   const getSeverity = (score) => {
     if (score >= 80) return "low";
@@ -62,8 +11,6 @@ export default function ResumeReview({ analysis }) {
     if (score >= 40) return "high";
     return "critical";
   };
-
-  const getImpact = (score) => `+${Math.round((100 - score) * 0.4)}%`;
 
   const items = [
     {

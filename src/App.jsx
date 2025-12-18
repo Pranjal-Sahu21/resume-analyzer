@@ -7,6 +7,7 @@ import ResumeReview from "./components/ResumeReview";
 
 export default function App() {
   const [analysis, setAnalysis] = useState(null);
+  const currentYear = new Date().getFullYear();
 
   const jobs = [
     {
@@ -114,7 +115,7 @@ export default function App() {
       </main>
 
       <footer className="relative z-10 text-center text-white/40 py-6 text-sm">
-        🚀 Powered by Smart Resume Review
+        <p>&copy; {currentYear} ResuScope. All rights reserved.</p>
       </footer>
     </div>
   );
