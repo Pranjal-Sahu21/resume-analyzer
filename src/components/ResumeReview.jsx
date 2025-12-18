@@ -90,16 +90,16 @@ export default function ResumeReview({ analysis }) {
     },
   ];
 
-  const overallScore = analysis.overall_score;
+  const overallScore = analysis.overallScore;
 
   return (
     <div className="bg-white/5 border border-white/10 rounded-2xl p-8 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* LEFT */}
       <div>
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-6">
           <div>
             <h2 className="text-white text-xl font-bold">Resume Review</h2>
-            <p className="text-sm text-white/60">
+            <p className="text-sm text-white/60 mt-2">
               {analysis.name} — {analysis.title}
             </p>
             <p className="text-xs text-white/40 mt-1">
@@ -117,35 +117,20 @@ export default function ResumeReview({ analysis }) {
           <Progress value={overallScore} />
         </div>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-12 mb-12 space-y-8">
           {items.map((item) => (
             <div key={item.key} className="border-l-4 border-white/10 pl-4">
-              <div className="flex justify-between gap-4">
+              <div className="flex justify-between gap-2">
                 <div className="flex-1">
-                  <div className="text-white font-semibold">{item.title}</div>
-
-                  <div className="text-xs text-white/60 mt-1">
-                    {optimizationResults[item.key] ||
-                      item.description ||
-                      "Click below for improvement suggestions."}
+                  <div className="text-white font-semibold py-4">
+                    {item.title}
                   </div>
-
-                  {!item.disabled && (
-                    <button
-                      onClick={() => handleOptimize(item.key)}
-                      disabled={loading[item.key]}
-                      className="mt-2 text-xs text-indigo-400 hover:text-indigo-300 disabled:opacity-50"
-                    >
-                      {loading[item.key]
-                        ? "Optimizing..."
-                        : "Get optimization tips"}
-                    </button>
-                  )}
                 </div>
 
-                <div className="text-right">
+                <div className="text-right flex items-center gap-2">
+                  {/* Severity indicator */}
                   <span
-                    className={`text-xs px-3 py-1 rounded-full text-white ${
+                    className={`w-3 h-3 rounded-full ${
                       getSeverity(item.score) === "critical"
                         ? "bg-red-500"
                         : getSeverity(item.score) === "high"
@@ -154,25 +139,26 @@ export default function ResumeReview({ analysis }) {
                         ? "bg-yellow-400"
                         : "bg-emerald-400"
                     }`}
-                  >
+                  />
+
+                  {/* Percentage value */}
+                  <span className="text-white font-semibold text-sm">
                     {item.score}%
                   </span>
-                  <div className="text-xs text-white/50 mt-1">
-                    {getImpact(item.score)} potential
-                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
       {/* RIGHT */}
-      <div className="bg-white/10 rounded-xl p-6 flex flex-col justify-between">
+      <div className="bg-white/10 backdrop-blur rounded-2xl p-7 flex flex-col gap-6">
         <div>
-          <h3 className="text-white text-xl font-bold mb-3">Summary</h3>
+          <h3 className="text-white text-xl font-semibold tracking-tight mb-2">
+            Summary
+          </h3>
 
-          <p className="text-white/80 text-sm">
+          <p className="text-white/80 text-sm leading-relaxed">
             {overallScore >= 80
               ? "Your resume is strong and well-aligned with the target role."
               : overallScore >= 60
@@ -181,24 +167,27 @@ export default function ResumeReview({ analysis }) {
               ? "Your resume needs significant improvements."
               : "Your resume requires substantial revision."}
           </p>
-
-          {analysis.suggestions?.length > 0 && (
-            <div className="mt-4">
-              <h4 className="text-white font-semibold mb-2">
-                Key Improvement Suggestions
-              </h4>
-              <ul className="list-disc list-inside text-white/70 text-sm space-y-1">
-                {analysis.suggestions.map((tip, index) => (
-                  <li key={index}>{tip}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
 
-        <button className="mt-6 w-full px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg">
-          Download full report
-        </button>
+        {analysis.suggestions?.length > 0 && (
+          <div className="border-t border-white/10 pt-4">
+            <h4 className="text-white font-semibold text-sm mb-3 mt-4">
+              Key Improvement Suggestions
+            </h4>
+
+            <ul className="space-y-8 mt-8">
+              {analysis.suggestions.map((tip, index) => (
+                <li
+                  key={index}
+                  className="flex gap-2 text-white/70 text-sm leading-relaxed"
+                >
+                  <span className="text-emerald-400 mt-1">•</span>
+                  <span>{tip}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

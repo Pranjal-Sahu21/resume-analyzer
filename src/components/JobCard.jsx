@@ -6,7 +6,7 @@ export default function JobCard({ job, onClick }) {
   const companyName = job?.companyName || "Unknown Company";
   const jobTitle = job?.jobTitle || "Unknown Position";
   const imagePath = job?.imagePath || "/placeholder-image.png";
-  const overallScore = job?.feedback?.overallScore || 0;
+  const overallScore = job?.overallScore || 0;
 
   return (
     <motion.div

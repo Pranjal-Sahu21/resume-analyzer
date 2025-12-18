@@ -1,14 +1,17 @@
-// src/components/UploadCard.js
 import React, { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
-import Dropzone from "./Dropzone";
 import {
   motion,
   AnimatePresence,
   useAnimation,
   useInView,
 } from "framer-motion";
+import Dropzone from "./Dropzone";
 import { analyzeResume } from "../services/api";
+import { ChevronDown } from "lucide-react";
+
+const inputBase =
+  "w-full rounded-xl bg-gray-900/60 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500/60 focus:border-indigo-500 transition";
+const labelBase = "block text-sm font-medium text-white/80 mb-1";
 
 export default function UploadCard({ onAnalyze }) {
   const [name, setName] = useState("");
@@ -30,31 +33,24 @@ export default function UploadCard({ onAnalyze }) {
   async function submit(e) {
     e.preventDefault();
 
-    if (!file) {
-      setError("Please upload a resume.");
-      return;
-    }
-
-    if (!jobDescription) {
-      setError("Please provide a job description.");
-      return;
-    }
+    if (!file) return setError("Please upload a resume.");
+    if (!jobDescription) return setError("Please provide a job description.");
 
     setLoading(true);
     setError("");
 
     try {
       const result = await analyzeResume(file, jobDescription, title);
-
       onAnalyze({
         name: name || "Applicant",
         title: title || "Target Role",
         fileName: file.name,
-        file, // 🔑 needed for optimize endpoints
-        scores: result.scores, // must match API response
+        file,
+        suggestions: result?.improvements_suggestion.key_points,
+        overallScore: result?.overall_score,
+        scores: result?.scores,
       });
     } catch (err) {
-      console.error(err);
       setError("Resume analysis failed. Please try again.");
     } finally {
       setLoading(false);
@@ -62,78 +58,87 @@ export default function UploadCard({ onAnalyze }) {
   }
 
   return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={controls}
-      className="flex flex-col items-center px-4"
-    >
-      {/* Header */}
-      <div className="text-center my-6 space-y-2">
+    <motion.div ref={ref} initial="hidden" animate={controls} className="px-4">
+      <div className="text-center my-8 space-y-3">
         <h2 className="text-4xl font-bold text-gradient">Smart Feedback</h2>
         <h2 className="text-4xl font-bold text-gradient">For Your Dream Job</h2>
       </div>
 
       <motion.form
         onSubmit={submit}
-        className="bg-gradient-to-br from-gray-900/40 via-gray-900/30 to-gray-800/40 border mt-4 border-white/10 rounded-3xl p-6 w-full max-w-xl shadow-2xl backdrop-blur-md"
+        className="w-full max-w-xl mx-auto bg-gradient-to-br from-gray-900/40 via-gray-900/30 to-gray-800/40 border border-white/10 rounded-3xl p-8 space-y-6 backdrop-blur-md"
       >
-        <p className="text-white/60 text-center text-sm">
-          Upload your resume and job description for AI analysis.
-        </p>
-
         {error && (
-          <div className="mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-sm">
+          <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-sm text-red-200">
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-4 mt-5">
-          <input
-            placeholder="Full name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="input"
-          />
+        <div className="grid gap-8">
+          <div>
+            <label className={labelBase}>Full name</label>
+            <input
+              placeholder="e.g. Alex Johnson"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={inputBase}
+            />
+          </div>
 
-          <input
-            required
-            placeholder="Target job title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="input"
-          />
+          <div>
+            <label className={labelBase}>Target job title</label>
+            <input
+              required
+              placeholder="e.g. Frontend Engineer"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className={inputBase}
+            />
+          </div>
 
-          <select
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-            className="input"
-          >
-            <option value="entry-level">Entry level</option>
-            <option value="mid-level">Mid level</option>
-            <option value="senior-level">Senior level</option>
-          </select>
+          <div>
+            <label className={labelBase}>Experience level</label>
+            <div className="relative">
+              <select
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+                className={`${inputBase} appearance-none cursor-pointer`}
+              >
+                <option value="entry-level">Entry level</option>
+                <option value="mid-level">Mid level</option>
+                <option value="senior-level">Senior level</option>
+              </select>
+              <ChevronDown
+                size={18}
+                className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/50"
+              />
+            </div>
+          </div>
 
-          <textarea
-            required
-            rows="4"
-            placeholder="Paste job description here..."
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            className="input"
-          />
+          <div>
+            <label className={labelBase}>Job description</label>
+            <textarea
+              required
+              rows={5}
+              placeholder="e.g. Looking for a React developer with experience in Tailwind and APIs…"
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              className={`${inputBase} resize-none leading-relaxed`}
+            />
+          </div>
         </div>
 
-        {/* File Upload */}
-        <div className="mt-5">
-          <Dropzone onFile={setFile} />
+        <div className="space-y-2">
+          <div className="w-full">
+            <Dropzone onFile={setFile} />
+          </div>
           <AnimatePresence>
             {file && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="mt-2 text-sm text-white/70"
+                className="text-xs text-white/70"
               >
                 Selected file:{" "}
                 <strong className="text-white">{file.name}</strong>
@@ -142,14 +147,13 @@ export default function UploadCard({ onAnalyze }) {
           </AnimatePresence>
         </div>
 
-        {/* Actions */}
-        <div className="mt-6 flex gap-3 justify-center">
+        <div className="flex justify-center gap-4 pt-4">
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold shadow-lg disabled:opacity-50"
+            className="px-7 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-sm font-semibold text-white shadow-lg disabled:opacity-50"
           >
-            {loading ? "Analyzing..." : "Get Feedback"}
+            {loading ? "Analyzing…" : "Get Feedback"}
           </button>
 
           <button
@@ -161,7 +165,7 @@ export default function UploadCard({ onAnalyze }) {
               setFile(null);
               setError("");
             }}
-            className="px-6 py-3 rounded-xl bg-white/10 text-white border border-white/20"
+            className="px-7 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-white hover:bg-white/15 transition"
           >
             Reset
           </button>

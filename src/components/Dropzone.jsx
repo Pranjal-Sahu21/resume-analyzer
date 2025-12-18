@@ -49,6 +49,7 @@ const Dropzone = ({ onFile }) => {
       <motion.div
         {...getRootProps()}
         whileHover={{ scale: 1.02 }}
+        whileTap={{scale: 0.98}}
         className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-colors ${
           isDragActive
             ? "border-indigo-400 bg-indigo-500/20"
