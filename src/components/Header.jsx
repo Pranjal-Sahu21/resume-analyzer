@@ -7,7 +7,7 @@ export default function Header({ onUploadClick }) {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex bg-blue-50 justify-between items-center px-6 md:px-12 lg:px-24 py-4 border-b border-gray-300"
+      className="fixed top-0 z-50 w-full flex justify-between items-center px-6 md:px-12 lg:px-24 py-4 bg-blue-50/40 backdrop-blur-md border-b border-white/20 shadow-sm"
     >
       <div className="flex gap-5 justify-center">
         <img src="/logo.svg" alt="Logo" className="h-8" />
@@ -15,7 +15,7 @@ export default function Header({ onUploadClick }) {
       </div>
       <motion.button
         whileHover={{
-          boxShadow: "0px 0px 12px rgba(59,130,246,0.25)", // lighter blue glow
+          boxShadow: "0px 0px 12px rgba(59,130,246,0.25)",
         }}
         whileTap={{ scale: 0.98 }}
         onClick={onUploadClick}

@@ -77,7 +77,7 @@ export default function ResumeReview({ analysis }) {
           {items.map((item) => (
             <div
               key={item.key}
-              className="border-l-4 border-blue-400 bg-blue-50/70
+              className="border-l-4 border-blue-400 bg-gray-100
                 rounded-lg pl-4 pr-3"
             >
               <div className="flex items-center justify-between gap-3">

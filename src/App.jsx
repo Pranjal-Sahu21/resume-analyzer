@@ -81,15 +81,13 @@ export default function App() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-white" />
       </div>
 
-      <div className="relative z-10">
-        <Header
-          onUploadClick={() =>
-            document
-              .getElementById("upload-section")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-        />
-      </div>
+      <Header
+        onUploadClick={() =>
+          document
+            .getElementById("upload-section")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
+      />
 
       <main className="relative z-10 px-6 md:px-12 lg:px-24 py-12 space-y-32">
         <motion.section
@@ -103,7 +101,7 @@ export default function App() {
 
         <motion.section
           id="upload-section"
-          className="flex justify-center"
+          className="flex justify-center pt-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
