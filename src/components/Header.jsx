@@ -7,21 +7,20 @@ export default function Header({ onUploadClick }) {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex justify-between items-center px-6 md:px-12 lg:px-24 py-4 border-b border-white/10"
+      className="flex bg-blue-50 justify-between items-center px-6 md:px-12 lg:px-24 py-4 border-b border-gray-300"
     >
       <div className="flex gap-5 justify-center">
         <img src="/logo.svg" alt="Logo" className="h-8" />
-        <h1 className="text-xl font-bold text-white">ResuScope</h1>
+        <h1 className="text-xl font-bold text-gray-900">ResuScope</h1>
       </div>
       <motion.button
         whileHover={{
-          scale: 1.05,
-          boxShadow: "0px 0px 12px rgba(255,255,255,0.25)",
+          boxShadow: "0px 0px 12px rgba(59,130,246,0.25)", // lighter blue glow
         }}
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.98 }}
         onClick={onUploadClick}
-        className="px-4 py-2 cursor-pointer rounded-lg bg-gradient-to-r from-indigo-500 to-pink-500 
-             text-white text-sm font-semibold shadow-md hover:brightness-110 transition"
+        className="px-4 py-2 cursor-pointer rounded-lg bg-blue-600
+             text-white text-sm font-semibold shadow-md hover:bg-blue-700 transition"
       >
         Upload
       </motion.button>

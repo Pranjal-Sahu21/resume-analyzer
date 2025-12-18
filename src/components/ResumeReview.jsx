@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Progress from "./Progress";
 
 export default function ResumeReview({ analysis }) {
-
   if (!analysis) return null;
 
   const getSeverity = (score) => {
@@ -40,23 +39,25 @@ export default function ResumeReview({ analysis }) {
   const overallScore = analysis.overallScore;
 
   return (
-    <div className="bg-white/5 border border-white/10 rounded-2xl p-8 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 shadow-md">
       {/* LEFT */}
       <div>
         <div className="flex justify-between mt-6">
           <div>
-            <h2 className="text-white text-xl font-bold">Resume Review</h2>
-            <p className="text-sm text-white/60 mt-2">
+            <h2 className="text-gray-900 text-xl font-bold">Resume Review</h2>
+            <p className="text-gray-700 text-sm mt-2">
               {analysis.name} — {analysis.title}
             </p>
-            <p className="text-xs text-white/40 mt-1">
+            <p className="text-gray-500 text-xs mt-1">
               Selected file: {analysis.fileName}
             </p>
           </div>
 
           <div className="text-right">
-            <div className="text-xs text-white/60">Overall score</div>
-            <div className="text-3xl font-bold text-white">{overallScore}%</div>
+            <div className="text-xs text-gray-600">Overall score</div>
+            <div className="text-3xl font-bold text-gray-900">
+              {overallScore}%
+            </div>
           </div>
         </div>
 
@@ -66,10 +67,10 @@ export default function ResumeReview({ analysis }) {
 
         <div className="mt-12 mb-12 space-y-8">
           {items.map((item) => (
-            <div key={item.key} className="border-l-4 border-white/10 pl-4">
+            <div key={item.key} className="border-l-4 bg-blue-50 border-blue-400 pl-4">
               <div className="flex justify-between gap-2">
                 <div className="flex-1">
-                  <div className="text-white font-semibold py-4">
+                  <div className="text-gray-900 font-semibold py-4">
                     {item.title}
                   </div>
                 </div>
@@ -84,12 +85,12 @@ export default function ResumeReview({ analysis }) {
                         ? "bg-orange-400"
                         : getSeverity(item.score) === "medium"
                         ? "bg-yellow-400"
-                        : "bg-emerald-400"
+                        : "bg-green-500"
                     }`}
                   />
 
                   {/* Percentage value */}
-                  <span className="text-white font-semibold text-sm">
+                  <span className="text-gray-900 font-semibold text-sm mr-4">
                     {item.score}%
                   </span>
                 </div>
@@ -98,14 +99,15 @@ export default function ResumeReview({ analysis }) {
           ))}
         </div>
       </div>
+
       {/* RIGHT */}
-      <div className="bg-white/10 backdrop-blur rounded-2xl p-7 flex flex-col gap-6">
+      <div className="bg-blue-50 rounded-2xl p-7 flex flex-col gap-6 shadow-inner">
         <div>
-          <h3 className="text-white text-xl font-semibold tracking-tight mb-2">
+          <h3 className="text-gray-900 text-xl font-semibold tracking-tight mb-2">
             Summary
           </h3>
 
-          <p className="text-white/80 text-sm leading-relaxed">
+          <p className="text-gray-700 text-sm leading-relaxed">
             {overallScore >= 80
               ? "Your resume is strong and well-aligned with the target role."
               : overallScore >= 60
@@ -117,18 +119,18 @@ export default function ResumeReview({ analysis }) {
         </div>
 
         {analysis.suggestions?.length > 0 && (
-          <div className="border-t border-white/10 pt-4">
-            <h4 className="text-white font-semibold text-sm mb-3 mt-4">
+          <div className="border-t border-gray-900 pt-4">
+            <h4 className="text-gray-900 font-semibold text-sm mb-3 mt-4">
               Key Improvement Suggestions
             </h4>
 
-            <ul className="space-y-8 mt-8">
+            <ul className="space-y-4 mt-4">
               {analysis.suggestions.map((tip, index) => (
                 <li
                   key={index}
-                  className="flex gap-2 text-white/70 text-sm leading-relaxed"
+                  className="flex gap-2 text-gray-700 text-sm leading-relaxed"
                 >
-                  <span className="text-emerald-400 mt-1">•</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>{tip}</span>
                 </li>
               ))}

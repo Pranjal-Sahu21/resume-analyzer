@@ -13,12 +13,12 @@ export default function JobCard({ job, onClick }) {
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="flex flex-col bg-white/5 border border-white/10 rounded-2xl overflow-hidden cursor-pointer 
-                 hover:bg-white/10 transition-all duration-300 group h-full min-h-[420px] 
-                 shadow-md hover:shadow-xl hover:border-white/20"
+      className="flex flex-col bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden cursor-pointer 
+                 transition-all duration-300 group h-full min-h-[420px] 
+                 shadow-md hover:shadow-lg"
     >
       {/* Large top image with zoom on hover */}
-      <div className="w-full h-56 bg-white/10 overflow-hidden">
+      <div className="w-full h-56 bg-gray-100 overflow-hidden">
         <img
           src={imagePath}
           alt={companyName}
@@ -29,21 +29,21 @@ export default function JobCard({ job, onClick }) {
       {/* Content */}
       <div className="flex-1 flex flex-col justify-between p-6">
         <div>
-          <h3 className="text-white font-semibold truncate text-lg">
+          <h3 className="text-gray-900 font-semibold truncate text-lg">
             {companyName}
           </h3>
-          <p className="text-white/60 text-sm truncate">{jobTitle}</p>
+          <p className="text-gray-600 text-sm truncate">{jobTitle}</p>
         </div>
 
         <div className="mt-6 flex items-center justify-between">
-          <div className="text-xs text-white/60">Score</div>
+          <div className="text-xs text-gray-600">Score</div>
           <div
             className={`text-lg font-bold ${
               overallScore >= 80
-                ? "text-green-400"
+                ? "text-green-600"
                 : overallScore >= 60
-                ? "text-yellow-400"
-                : "text-red-400"
+                ? "text-yellow-600"
+                : "text-red-600"
             }`}
           >
             {overallScore}%
@@ -52,7 +52,7 @@ export default function JobCard({ job, onClick }) {
 
         {/* Progress bar */}
         <div className="mt-4">
-          <div className="w-full bg-white/10 rounded-full h-2">
+          <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full ${
                 overallScore >= 80

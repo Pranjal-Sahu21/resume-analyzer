@@ -78,8 +78,7 @@ export default function App() {
     <div className="relative min-h-screen overflow-hidden text-white">
       {/* Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-blue-900 animate-gradient bg-[length:400%_400%]" />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-white" />
       </div>
 
       <div className="relative z-10">
@@ -131,7 +130,7 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      <footer className="relative z-10 text-center text-white/40 py-6 text-sm">
+      <footer className="relative z-10 bg-blue-50 text-center text-gray-600 py-6 text-sm border-t border-gray-300">
         <p>&copy; {currentYear} ResuScope. All rights reserved.</p>
       </footer>
     </div>

@@ -10,8 +10,8 @@ import { analyzeResume } from "../services/api";
 import { ChevronDown } from "lucide-react";
 
 const inputBase =
-  "w-full rounded-xl bg-gray-900/60 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500/60 focus:border-indigo-500 transition";
-const labelBase = "block text-sm font-medium text-white/80 mb-1";
+  "w-full rounded-xl bg-gray-50 border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 shadow-inner focus:outline-none focus:ring-1 focus:ring-blue-300 focus:border-blue-300 transition";
+const labelBase = "block text-sm font-medium text-gray-700 mb-1";
 
 export default function UploadCard({ onAnalyze, onReset }) {
   const [name, setName] = useState("");
@@ -60,21 +60,25 @@ export default function UploadCard({ onAnalyze, onReset }) {
   return (
     <motion.div ref={ref} initial="hidden" animate={controls} className="px-4">
       <div className="text-center my-8 space-y-3">
-        <h2 className="text-4xl font-bold text-gradient">Smart Feedback</h2>
-        <h2 className="text-4xl font-bold text-gradient">For Your Dream Job</h2>
+        <h2 className="text-4xl font-bold text-gradient-dark">
+          Smart Feedback
+        </h2>
+        <h2 className="text-4xl font-bold text-gradient-dark">
+          For Your Dream Job
+        </h2>
       </div>
 
       <motion.form
         onSubmit={submit}
-        className="w-full max-w-xl mx-auto bg-gradient-to-br from-gray-900/40 via-gray-900/30 to-gray-800/40 border border-white/10 rounded-3xl p-8 space-y-6 backdrop-blur-md"
+        className="w-full max-w-xl mx-auto bg-gray-50 border border-gray-200 rounded-3xl p-8 space-y-6 shadow-lg"
       >
         {error && (
-          <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-sm text-red-200">
+          <div className="p-3 rounded-xl bg-red-100 border border-red-300 text-sm text-red-700">
             {error}
           </div>
         )}
 
-        <div className="grid gap-8">
+        <div className="grid gap-6">
           <div>
             <label className={labelBase}>Full name</label>
             <input
@@ -110,7 +114,7 @@ export default function UploadCard({ onAnalyze, onReset }) {
               </select>
               <ChevronDown
                 size={18}
-                className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/50"
+                className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
               />
             </div>
           </div>
@@ -123,7 +127,7 @@ export default function UploadCard({ onAnalyze, onReset }) {
               placeholder="e.g. Looking for a React developer with experience in Tailwind and APIs…"
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
-              className={`${inputBase} resize-none leading-relaxed`}
+              className={`${inputBase} resize-none leading-relaxed custom-scrollbar`}
             />
           </div>
         </div>
@@ -138,23 +142,26 @@ export default function UploadCard({ onAnalyze, onReset }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-xs text-white/70"
+                className="text-xs text-gray-700"
               >
                 Selected file:{" "}
-                <strong className="text-white">{file.name}</strong>
+                <strong className="text-gray-900">{file.name}</strong>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
         <div className="flex justify-center gap-4 pt-4">
-          <button
+          <motion.button
+            whileHover={{
+              boxShadow: "0px 0px 12px rgba(59,130,246,0.25)",
+            }}
             type="submit"
             disabled={loading}
-            className="px-7 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 text-sm font-semibold text-white shadow-lg disabled:opacity-50"
+            className="px-7 py-3 rounded-xl bg-blue-600 text-sm font-semibold text-white shadow-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer active:scale-98"
           >
             {loading ? "Analyzing…" : "Get Feedback"}
-          </button>
+          </motion.button>
 
           <button
             type="button"
@@ -166,7 +173,7 @@ export default function UploadCard({ onAnalyze, onReset }) {
               setError("");
               onReset?.();
             }}
-            className="px-7 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-white hover:bg-white/15 transition"
+            className="px-7 py-3 rounded-xl bg-gray-100 border border-gray-300 cursor-pointer active:scale-98 text-sm text-gray-900 hover:bg-gray-200 transition"
           >
             Reset
           </button>

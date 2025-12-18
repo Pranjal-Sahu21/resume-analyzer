@@ -7,7 +7,7 @@ export default function JobGrid({ jobs = [], onButtonClick }) {
   if (!jobs || jobs.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-white/60">No job positions available</p>
+        <p className="text-gray-600">No job positions available</p>
       </div>
     );
   }
@@ -19,17 +19,17 @@ export default function JobGrid({ jobs = [], onButtonClick }) {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-4xl font-bold tracking-wide text-gradient max-lg:text-3xl text-center leading-relaxed"
+        className="text-4xl font-bold tracking-wide max-lg:text-3xl text-center leading-relaxed"
       >
-        Track your applications
+        <span className="text-gradient-dark">Track your applications</span>
       </motion.h2>
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-4xl font-bold tracking-wide text-gradient max-lg:text-3xl text-center mt-[-24px] leading-relaxed"
+        className="text-4xl font-bold tracking-wide max-lg:text-3xl text-center mt-[-24px] leading-relaxed"
       >
-        & Resume ratings
+        <span className="text-gradient-dark">& Resume ratings</span>
       </motion.h2>
 
       {/* Job grid */}
