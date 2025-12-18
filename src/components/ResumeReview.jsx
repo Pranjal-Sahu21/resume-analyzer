@@ -114,7 +114,7 @@ export default function ResumeReview({ analysis }) {
         flex flex-col gap-5 sm:gap-6"
       >
         <div>
-          <h3 className="text-gray-900 text-lg sm:text-xl font-semibold mb-2">
+          <h3 className="text-gray-900 text-lg sm:text-xl font-bold mb-2">
             Summary
           </h3>
           <p className="text-gray-700 text-sm leading-relaxed">

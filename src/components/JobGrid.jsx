@@ -23,7 +23,7 @@ export default function JobGrid({ jobs = [] }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="font-bold tracking-wide leading-snug
-            text-2xl sm:text-2xl lg:text-3xl xl:text-4xl"
+            text-2xl sm:text-3xl lg:text-3xl xl:text-4xl"
         >
           <span className="text-gradient-dark">Track your applications</span>
         </motion.h2>
@@ -33,8 +33,8 @@ export default function JobGrid({ jobs = [] }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="font-bold tracking-wide leading-snug
-            text-2xl sm:text-2xl lg:text-3xl xl:text-4xl
-             sm:-mt-2"
+            text-2xl sm:text-3xl lg:text-3xl xl:text-4xl
+             "
         >
           <span className="text-gradient-dark">& Resume ratings</span>
         </motion.h2>

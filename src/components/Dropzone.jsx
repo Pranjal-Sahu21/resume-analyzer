@@ -1,10 +1,10 @@
-// src/components/Dropzone.js
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 
 const Dropzone = ({ onFile }) => {
   const [fileError, setFileError] = useState("");
+  const isMobile = window.innerWidth < 640;
 
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -17,13 +17,11 @@ const Dropzone = ({ onFile }) => {
 
       const file = acceptedFiles[0];
 
-      // Check file type
       if (!file.type.includes("pdf") && !file.name.endsWith(".docx")) {
         setFileError("Only PDF and DOCX files are allowed");
         return;
       }
 
-      // Check file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         setFileError("File size must be less than 5MB");
         return;
@@ -60,7 +58,7 @@ const Dropzone = ({ onFile }) => {
         <div className="space-y-2">
           <div className="text-4xl">📄</div>
           <p className="text-gray-700">
-            {isDragActive
+            {isMobile ? "Click to select" : isDragActive
               ? "Drop your resume here"
               : "Drag & drop your resume here, or click to select"}
           </p>
