@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Header from "./components/Header";
 import UploadCard from "./components/UploadCard";
 import JobGrid from "./components/JobGrid";
 import ResumeReview from "./components/ResumeReview";
 
 export default function App() {
+  const [showResult, setShowResult] = useState(false);
   const [analysis, setAnalysis] = useState(null);
   const currentYear = new Date().getFullYear();
+  const resultRef = useRef(null);
 
   const jobs = [
     {
@@ -35,6 +37,7 @@ export default function App() {
 
   const handleAnalyze = (data) => {
     setAnalysis(data);
+    setShowResult(true);
 
     const scrollToReview = () => {
       const el = document.getElementById("review-section");
@@ -61,6 +64,15 @@ export default function App() {
       transition: { duration: 0.7, ease: "easeOut", delay },
     },
   });
+
+  useEffect(() => {
+    if (showResult) {
+      resultRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [showResult]);
 
   return (
     <div className="relative min-h-screen overflow-hidden text-white">
@@ -98,20 +110,25 @@ export default function App() {
           viewport={{ once: true }}
           variants={fadeInUp(0.2)}
         >
-          <UploadCard onAnalyze={handleAnalyze} />
+          <UploadCard
+            onAnalyze={handleAnalyze}
+            onReset={() => setShowResult(false)}
+          />
         </motion.section>
 
-        {analysis && (
-          <motion.section
-            id="review-section"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp(0.4)}
-          >
-            <ResumeReview analysis={analysis} />
-          </motion.section>
-        )}
+        <AnimatePresence>
+          {showResult && analysis && (
+            <motion.div
+              ref={resultRef}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ResumeReview analysis={analysis} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       <footer className="relative z-10 text-center text-white/40 py-6 text-sm">

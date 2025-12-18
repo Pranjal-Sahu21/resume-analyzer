@@ -13,7 +13,7 @@ const inputBase =
   "w-full rounded-xl bg-gray-900/60 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500/60 focus:border-indigo-500 transition";
 const labelBase = "block text-sm font-medium text-white/80 mb-1";
 
-export default function UploadCard({ onAnalyze }) {
+export default function UploadCard({ onAnalyze, onReset }) {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -164,6 +164,7 @@ export default function UploadCard({ onAnalyze }) {
               setJobDescription("");
               setFile(null);
               setError("");
+              onReset?.();
             }}
             className="px-7 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-white hover:bg-white/15 transition"
           >
