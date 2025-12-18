@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import UploadCard from "./components/UploadCard";
 import JobGrid from "./components/JobGrid";
 import ResumeReview from "./components/ResumeReview";
+import HomePage from "./components/HomPage";
 
 export default function App() {
   const [showResult, setShowResult] = useState(false);
@@ -89,16 +90,22 @@ export default function App() {
         }
       />
 
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp()}
+      >
+        {/* <JobGrid jobs={jobs} /> */}
+        <HomePage
+          onUploadClick={() =>
+            document
+              .getElementById("upload-section")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+        />
+      </motion.section>
       <main className="relative z-10 px-6 md:px-12 lg:px-24 py-12 space-y-32">
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp()}
-        >
-          <JobGrid jobs={jobs} />
-        </motion.section>
-
         <motion.section
           id="upload-section"
           className="flex justify-center pt-16"

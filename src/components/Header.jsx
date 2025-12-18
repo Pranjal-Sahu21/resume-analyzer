@@ -13,16 +13,16 @@ export default function Header({ onUploadClick }) {
         <img src="/logo.svg" alt="Logo" className="h-8" />
         <h1 className="text-xl font-bold text-gray-900">ResuScope</h1>
       </div>
-      <motion.button
+      {/* <motion.button
         whileHover={{
           boxShadow: "0px 0px 12px rgba(59,130,246,0.25)",
         }}
         whileTap={{ scale: 0.98 }}
         onClick={onUploadClick}
-        className="px-4 py-2 cursor-pointer rounded-lg bg-gradient-to-r from-[#3b82f6] to-[#415ead] text-white text-sm font-semibold shadow-md active:scale-95 transition"
+        className="px-5 py-3 cursor-pointer rounded-lg bg-gradient-to-r from-[#3b82f6] to-[#415ead] text-white text-sm font-semibold shadow-md active:scale-95 transition"
       >
         Upload
-      </motion.button>
+      </motion.button> */}
     </motion.header>
   );
 }
