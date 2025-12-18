@@ -19,8 +19,7 @@ export default function Header({ onUploadClick }) {
         }}
         whileTap={{ scale: 0.98 }}
         onClick={onUploadClick}
-        className="px-4 py-2 cursor-pointer rounded-lg bg-blue-600
-             text-white text-sm font-semibold shadow-md hover:bg-blue-700 transition"
+        className="px-4 py-2 cursor-pointer rounded-lg bg-gradient-to-r from-[#3b82f6] to-[#415ead] text-white text-sm font-semibold shadow-md active:scale-95 transition"
       >
         Upload
       </motion.button>

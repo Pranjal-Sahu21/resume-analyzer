@@ -3,52 +3,59 @@ import React from "react";
 import { motion } from "framer-motion";
 import JobCard from "./JobCard";
 
-export default function JobGrid({ jobs = [], onButtonClick }) {
+export default function JobGrid({ jobs = [] }) {
   if (!jobs || jobs.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-600">No job positions available</p>
+      <div className="text-center py-10 sm:py-12">
+        <p className="text-gray-600 text-sm sm:text-base">
+          No job positions available
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-6">
       {/* Section title */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-4xl font-bold tracking-wide max-lg:text-3xl text-center leading-relaxed"
-      >
-        <span className="text-gradient-dark">Track your applications</span>
-      </motion.h2>
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-4xl font-bold tracking-wide max-lg:text-3xl text-center mt-[-24px] leading-relaxed"
-      >
-        <span className="text-gradient-dark">& Resume ratings</span>
-      </motion.h2>
+      <div className="text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-bold tracking-wide leading-snug
+            text-2xl sm:text-2xl lg:text-3xl xl:text-4xl"
+        >
+          <span className="text-gradient-dark">Track your applications</span>
+        </motion.h2>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-bold tracking-wide leading-snug
+            text-2xl sm:text-2xl lg:text-3xl xl:text-4xl
+             sm:-mt-2"
+        >
+          <span className="text-gradient-dark">& Resume ratings</span>
+        </motion.h2>
+      </div>
 
       {/* Job grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+      <div
+        className="grid gap-5 sm:gap-6 lg:gap-8
+        grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+        auto-rows-fr mt-12"
+      >
         {jobs.map((job, index) => (
           <motion.div
             key={job.id || index}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="h-full mt-4"
+            transition={{ delay: index * 0.08 }}
+            className="h-full"
           >
-            <JobCard
-              job={job}
-              onClick={() => {
-                console.log("Selected job:", job);
-              }}
-            />
+            <JobCard job={job} />
           </motion.div>
         ))}
       </div>
