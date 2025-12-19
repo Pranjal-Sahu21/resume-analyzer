@@ -24,6 +24,7 @@
 - **React.js** (UI Framework)
 - **Tailwind CSS** (Styling)
 - **Netlify** (Deployment)
+- **Framer Motion** (Animations)
 
 ### AI/ML & Backend
 - **Python** (Core Processing)

@@ -12,30 +12,6 @@ export default function App() {
   const currentYear = new Date().getFullYear();
   const resultRef = useRef(null);
 
-  const jobs = [
-    {
-      id: "1",
-      companyName: "Google",
-      jobTitle: "Frontend Developer",
-      imagePath: "/images/resume_01.png",
-      overallScore: "95",
-    },
-    {
-      id: "2",
-      companyName: "Microsoft",
-      jobTitle: "Cloud Engineer",
-      imagePath: "/images/resume_02.png",
-      overallScore: "75",
-    },
-    {
-      id: "3",
-      companyName: "Apple",
-      jobTitle: "iOS Developer",
-      imagePath: "/images/resume_03.png",
-      overallScore: "58",
-    },
-  ];
-
   const handleAnalyze = (data) => {
     setAnalysis(data);
     setShowResult(true);

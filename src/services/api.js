@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "https://resuscope-api-64079021584.asia-south1.run.app";
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 /* ============================
    ANALYZE RESUME

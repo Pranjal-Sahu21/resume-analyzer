@@ -118,15 +118,6 @@ export default function UploadCard({ onAnalyze, onReset }) {
 
         {/* Inputs */}
         <div className="grid gap-5 sm:gap-6">
-          {/* <div>
-            <label className={labelBase}>Full name</label>
-            <input
-              placeholder="e.g. Alex Johnson"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={inputBase}
-            />
-          </div> */}
 
           <div>
             <label className={labelBase}>Target job title</label>

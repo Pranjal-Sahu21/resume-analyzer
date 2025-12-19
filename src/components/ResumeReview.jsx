@@ -51,12 +51,6 @@ export default function ResumeReview({ analysis }) {
             <h2 className="text-gray-900 text-lg sm:text-xl font-bold">
               Resume Review
             </h2>
-            {/* <p className="text-gray-700 text-sm mt-1">
-              {analysis.name} — {analysis.title}
-            </p>
-            <p className="text-gray-500 text-xs mt-1 truncate max-w-[260px] sm:max-w-none">
-              Selected file: {analysis.fileName}
-            </p> */}
           </div>
 
           <div className="sm:text-right">
