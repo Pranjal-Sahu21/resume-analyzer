@@ -30,7 +30,7 @@ export default function HomePage({ onUploadClick }) {
   };
 
   return (
-    <section className="relative w-full h-screen flex flex-col gap-4 justify-center items-center text-center overflow-hidden px-4">
+    <section className="relative w-full h-[100dvh] flex flex-col gap-4 justify-center items-center text-center overflow-hidden px-4">
       {/* Heading */}
       <motion.h1
         className="text-[#3D7AE5] text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight max-w-4xl"

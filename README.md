@@ -1,12 +1,43 @@
-# React + Vite
+# 🚀 ResuScope: AI-Powered Resume Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**ResuScope** is a comprehensive tool designed to help job seekers optimize their resumes for modern Applicant Tracking Systems (ATS). By using AI and Machine Learning, it provides deep insights into resume quality, keyword matching, and structural improvements.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [https://resuscope.netlify.app/](https://resuscope.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 **GitHub Repo:** [https://github.com/Pranjal-Sahu21/resume-analyzer](https://github.com/Pranjal-Sahu21/resume-analyzer)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+* **ATS Compatibility Scoring:** Get an instant score based on how well your resume performs against automated filters.
+* **Skill Extraction:** Automatically identifies and categorizes your technical and soft skills.
+* **Keyword Analysis:** Recommends missing keywords relevant to your target industry.
+* **Smart Suggestions:** AI-driven feedback to improve your summary, experience descriptions, and formatting.
+* **Modern UI/UX:** A clean, responsive dashboard for a seamless user experience.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React.js** (UI Framework)
+- **Tailwind CSS** (Styling)
+- **Netlify** (Deployment)
+
+### AI/ML & Backend
+- **Python** (Core Processing)
+- **Natural Language Processing (NLP)** (Parsing and Entity Recognition)
+- **Machine Learning Models** (Scoring and Recommendation logic)
+
+---
+
+## 👥 Meet the Team
+
+| Role | Developer | GitHub Profile |
+| :--- | :--- | :--- |
+| **Frontend Developer** | Pranjal Sahu | [@Pranjal-Sahu21](https://github.com/Pranjal-Sahu21) |
+| **Frontend Developer** | Himansu Kumar | [@Himansu-Kumar](https://github.com/Himansu-Kumar) |
+| **AI/ML Specialist** | Soumya Ranjan Bhoi | [@Soumya-RanjanBhoi](https://github.com/Soumya-RanjanBhoi) |
+
+---
